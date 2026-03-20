@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAVIK · JUSTWATCH</title>
+<!-- AdSense: Replace ca-pub-XXXXXXXXXXXXXXXX with your real publisher ID -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b0f; --surface: #0f1318; --card: #141920; --border: #1e2530;
+  --accent: #e50914; --accent2: #ff6b35; --gold: #f5c518;
+  --text: #f0f0f0; --muted: #7a8494; --hover: #1c2530; --green: #21d07a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── NAV ── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; background: rgba(8,11,15,0.96); border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(16px); gap: 12px; }
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 3px; background: linear-gradient(135deg,#fff 0%,var(--accent) 60%,var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; flex-shrink: 0; }
+.logo span { font-size: 9px; font-family: 'Space Mono', monospace; letter-spacing: 4px; display: block; background: linear-gradient(90deg,var(--muted),var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-top: -4px; }
+.nav-tabs { display: flex; gap: 3px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 4px; flex-shrink: 0; }
+.nav-tab { padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: var(--muted); transition: all 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+.nav-tab.active { background: var(--accent); color: white; }
+.nav-tab:hover:not(.active) { background: var(--hover); color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.search-wrap { position: relative; display: flex; align-items: center; }
+.search-input { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px 8px 36px; color: var(--text); font-size: 13px; font-family: 'DM Sans', sans-serif; width: 200px; outline: none; transition: all 0.25s; }
+.search-input:focus { border-color: var(--accent); width: 260px; box-shadow: 0 0 0 3px rgba(229,9,20,0.1); }
+.search-icon { position: absolute; left: 10px; color: var(--muted); font-size: 13px; pointer-events: none; }
+.mobile-menu-btn { display: none; background: var(--surface); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; font-size: 16px; cursor: pointer; align-items: center; justify-content: center; flex-shrink: 0; }
+.mobile-nav { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(8,11,15,0.98); border-bottom: 1px solid var(--border); padding: 16px; z-index: 99; backdrop-filter: blur(16px); flex-direction: column; gap: 8px; }
+.mobile-nav.open { display: flex; }
+.mobile-nav-tab { padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; background: var(--surface); color: var(--muted); transition: all 0.2s; font-family: 'DM Sans', sans-serif; text-align: left; border: 1px solid var(--border); }
+.mobile-nav-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* ── ADSENSE SLOTS ── */
+.ad-slot { background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 11px; font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; }
+.ad-banner { width: 100%; height: 90px; margin-bottom: 32px; }
+.ad-square { width: 100%; height: 250px; margin-bottom: 32px; }
+/* Uncomment and replace with real AdSense ins tags when approved */
+
+/* ── HERO ── */
+.hero { height: 100vh; min-height: 500px; position: relative; display: flex; align-items: flex-end; padding: 0 48px 80px; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg,#0a0f1a 0%,#1a0808 50%,#080b0f 100%); }
+.hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 60% 40%,rgba(229,9,20,0.1) 0%,transparent 70%), radial-gradient(ellipse 40% 40% at 20% 70%,rgba(255,107,53,0.07) 0%,transparent 60%); }
+.hero-content { position: relative; z-index: 2; max-width: 600px; animation: fadeUp 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(229,9,20,0.12); border: 1px solid rgba(229,9,20,0.25); border-radius: 6px; padding: 5px 12px; font-size: 11px; font-family: 'Space Mono', monospace; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 20px; }
+.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px,8vw,96px); line-height: 0.92; letter-spacing: 2px; margin-bottom: 20px; }
+.hero-title .line2 { background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-desc { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 32px; max-width: 440px; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary { background: var(--accent); color: white; border: none; padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+.btn-primary:hover { background: #c4070f; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(229,9,20,0.3); }
+.btn-ghost { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+.btn-ghost:hover { background: rgba(255,255,255,0.1); }
+.hero-stats { position: absolute; right: 48px; bottom: 80px; z-index: 2; display: flex; flex-direction: column; gap: 20px; animation: fadeUp 0.8s 0.2s ease both; }
+.stat { text-align: right; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 1; background: linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Space Mono', monospace; }
+
+/* ── MAIN ── */
+main { padding: 60px 48px; }
+.section { margin-bottom: 56px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+.see-all { font-size: 11px; color: var(--accent); cursor: pointer; font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; border: none; background: none; transition: opacity 0.2s; }
+.see-all:hover { opacity: 0.7; }
+
+/* ── MOVIE GRID ── */
+.movie-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(155px,1fr)); gap: 16px; }
+.movie-card { border-radius: 12px; overflow: hidden; background: var(--card); border: 1px solid var(--border); cursor: pointer; transition: all 0.25s; position: relative; animation: fadeIn 0.5s ease both; }
+.movie-card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(229,9,20,0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(229,9,20,0.15); }
+.movie-poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: var(--surface); }
+.movie-poster-placeholder { width: 100%; aspect-ratio: 2/3; background: linear-gradient(135deg,var(--surface),var(--hover)); display: flex; align-items: center; justify-content: center; font-size: 36px; }
+.movie-info { padding: 10px 12px 12px; }
+.movie-title { font-size: 12px; font-weight: 600; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.movie-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.movie-year { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; }
+.movie-rating { display: flex; align-items: center; gap: 3px; font-size: 10px; font-family: 'Space Mono', monospace; color: var(--gold); }
+
+/* ── STAR RATING ── */
+.star-row { display: flex; gap: 3px; margin-bottom: 4px; }
+.star { font-size: 12px; cursor: pointer; color: var(--border); transition: color 0.15s; }
+.star.filled { color: var(--gold); }
+.star:hover { color: var(--gold); }
+.user-review-label { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+.netflix-badge { position: absolute; top: 8px; left: 8px; background: #e50914; color: white; font-size: 8px; font-family: 'Space Mono', monospace; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 1px; }
+.tv-badge { position: absolute; top: 8px; right: 8px; background: rgba(33,208,122,0.2); color: var(--green); border: 1px solid rgba(33,208,122,0.3); font-size: 8px; font-family: 'Space Mono', monospace; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 1px; }
+
+.skeleton { background: linear-gradient(90deg,var(--card) 25%,var(--hover) 50%,var(--card) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; aspect-ratio: 2/3; }
+
+/* ── MODAL ── */
+.modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--card); border: 1px solid var(--border); border-radius: 20px; max-width: 820px; width: 100%; max-height: 92vh; overflow-y: auto; transform: scale(0.95); transition: transform 0.3s; position: relative; }
+.modal-overlay.open .modal { transform: scale(1); }
+.modal-close { position: absolute; top: 14px; right: 14px; z-index: 10; background: rgba(0,0,0,0.7); border: 1px solid var(--border); color: var(--text); width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.modal-close:hover { background: var(--accent); border-color: var(--accent); }
+.modal-body { padding: 24px 28px 32px; }
+.modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 2px; margin-bottom: 6px; line-height: 1; }
+.modal-tagline { color: var(--muted); font-style: italic; font-size: 13px; margin-bottom: 14px; }
+.modal-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.chip { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
+.chip.rating { background: rgba(245,197,24,0.1); border-color: rgba(245,197,24,0.3); color: var(--gold); }
+.chip.genre { background: rgba(229,9,20,0.1); border-color: rgba(229,9,20,0.2); color: #ff8080; }
+.chip.green { background: rgba(33,208,122,0.1); border-color: rgba(33,208,122,0.2); color: var(--green); }
+.modal-overview { color: #c0c8d4; font-size: 14px; line-height: 1.8; margin-bottom: 24px; }
+.modal-section-title { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.providers-list { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.provider-item { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 13px; font-size: 12px; }
+.provider-item img { width: 18px; height: 18px; border-radius: 4px; }
+.cast-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(72px,1fr)); gap: 12px; margin-bottom: 28px; }
+.cast-item { text-align: center; }
+.cast-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: var(--surface); margin: 0 auto 5px; display: block; border: 2px solid var(--border); }
+.cast-name { font-size: 10px; font-weight: 600; line-height: 1.3; }
+.cast-char { font-size: 9px; color: var(--muted); }
+
+/* ── REVIEW SECTION ── */
+.review-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 24px; }
+.review-stars { display: flex; gap: 6px; margin-bottom: 12px; }
+.review-star { font-size: 22px; cursor: pointer; color: var(--border); transition: color 0.15s; user-select: none; }
+.review-star.filled { color: var(--gold); }
+.review-star:hover { color: var(--gold); }
+.review-textarea { width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--text); font-size: 13px; font-family: 'DM Sans', sans-serif; resize: vertical; min-height: 80px; outline: none; transition: border-color 0.2s; }
+.review-textarea:focus { border-color: var(--accent); }
+.review-submit { margin-top: 10px; background: var(--accent); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+.review-submit:hover { background: #c4070f; }
+.reviews-list { display: flex; flex-direction: column; gap: 12px; }
+.review-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.review-item-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.review-item-stars { color: var(--gold); font-size: 12px; }
+.review-item-date { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; }
+.review-item-text { font-size: 13px; color: #c0c8d4; line-height: 1.6; }
+
+/* ── SEARCH ── */
+.search-section { display: none; }
+.search-section.active { display: block; }
+.empty-state { text-align: center; padding: 60px 20px; color: var(--muted); grid-column: 1/-1; }
+.empty-state .icon { font-size: 44px; margin-bottom: 14px; }
+.empty-state h3 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; margin-bottom: 8px; color: var(--text); }
+.empty-state p { font-size: 13px; }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 24px; right: 24px; z-index: 300; background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 12px 18px; font-size: 13px; transform: translateY(100px); opacity: 0; transition: all 0.3s; max-width: 280px; }
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── PRIVACY PAGE ── */
+.privacy-page { display: none; max-width: 720px; margin: 0 auto; }
+.privacy-page.active { display: block; }
+.privacy-page h1 { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 3px; margin-bottom: 8px; }
+.privacy-page .updated { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; margin-bottom: 40px; }
+.privacy-page h2 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin: 32px 0 12px; color: var(--accent); }
+.privacy-page p { color: #c0c8d4; font-size: 14px; line-height: 1.8; margin-bottom: 14px; }
+.privacy-page ul { color: #c0c8d4; font-size: 14px; line-height: 1.8; padding-left: 20px; margin-bottom: 14px; }
+
+/* ── FOOTER ── */
+footer { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 48px 32px; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+.footer-brand .logo { font-size: 22px; margin-bottom: 10px; display: block; }
+.footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.footer-col h4 { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 13px; color: #c0c8d4; margin-bottom: 8px; cursor: pointer; transition: color 0.2s; text-decoration: none; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-bottom p { font-size: 12px; color: var(--muted); }
+.tmdb-credit { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+
+/* ── SPINNER ── */
+.spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 60px auto; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes shimmer { 0% { background-position:-200% 0; } 100% { background-position:200% 0; } }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .nav-tabs { display: none; }
+  .mobile-menu-btn { display: flex; }
+  .hero-stats { display: none; }
+  nav { padding: 0 16px; gap: 8px; }
+  main { padding: 32px 16px; }
+  .hero { padding: 0 20px 60px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  footer { padding: 32px 20px 24px; }
+}
+@media (max-width: 600px) {
+  .search-input { width: 130px; }
+  .search-input:focus { width: 170px; }
+  .movie-grid { grid-template-columns: repeat(auto-fill,minmax(130px,1fr)); gap: 10px; }
+  .hero-title { font-size: 46px; }
+  .modal { border-radius: 16px; }
+  .modal-body { padding: 18px 18px 28px; }
+  .modal-title { font-size: 30px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .hero { padding: 0 16px 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">TAVIK<span>· JUSTWATCH</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('home',this)">Home</button>
+    <button class="nav-tab" onclick="showTab('movies',this)">Movies</button>
+    <button class="nav-tab" onclick="showTab('tvshows',this)">TV Shows</button>
+    <button class="nav-tab" onclick="showTab('netflix',this)">Netflix</button>
+    <button class="nav-tab" onclick="showTab('trending',this)">Trending</button>
+  </div>
+  <div class="nav-right">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Search..." id="searchInput" oninput="handleSearch(this.value)">
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" id="menuBtn">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-tab active" onclick="showTab('home',this);closeMobileMenu()">🏠 Home</button>
+  <button class="mobile-nav-tab" onclick="showTab('movies',this);closeMobileMenu()">🎬 Movies</button>
+  <button class="mobile-nav-tab" onclick="showTab('tvshows',this);closeMobileMenu()">📺 TV Shows</button>
+  <button class="mobile-nav-tab" onclick="showTab('netflix',this);closeMobileMenu()">N Netflix</button>
+  <button class="mobile-nav-tab" onclick="showTab('trending',this);closeMobileMenu()">🔥 Trending</button>
+  <button class="mobile-nav-tab" onclick="showTab('privacy',this);closeMobileMenu()">🔒 Privacy Policy</button>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="heroSection">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🎬 Movies · TV · Streaming</div>
+    <h1 class="hero-title">DISCOVER<br><span class="line2">EVERY FILM</span><br>EVER MADE</h1>
+    <p class="hero-desc">Browse trending movies & TV shows, find what's streaming on Netflix — rate and review everything.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollToContent()">Browse Now</button>
+      <button class="btn-ghost" onclick="showTab('tvshows',document.querySelector('.nav-tab:nth-child(3)'))">TV Shows</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">1M+</div><div class="stat-label">Movies</div></div>
+    <div class="stat"><div class="stat-num">TV</div><div class="stat-label">Shows</div></div>
+    <div class="stat"><div class="stat-num">FREE</div><div class="stat-label">Always</div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="mainContent">
+
+  <!-- AD BANNER TOP -->
+  <div class="ad-slot ad-banner" id="adTop">
+    <!-- AdSense Banner Ad — replace this div with your ins tag after approval -->
+    AD · 728×90
+  </div>
+
+  <!-- SEARCH -->
+  <div class="section search-section" id="searchSection">
+    <div class="section-header">
+      <div class="section-title"><span class="dot"></span> Search Results</div>
+      <div style="display:flex;gap:8px">
+        <button class="see-all" onclick="setSearchType('movie')" id="searchMovieBtn" style="color:var(--accent)">Movies</button>
+        <button class="see-all" onclick="setSearchType('tv')" id="searchTvBtn">TV</button>
+      </div>
+    </div>
+    <div class="movie-grid" id="searchGrid"></div>
+  </div>
+
+  <!-- TRENDING -->
+  <div class="section" id="trendingSection">
+    <div class="section-header">
+      <div class="section-title"><span class="dot"></span> 🔥 Trending This Week</div>
+      <button class="see-all" onclick="loadMore('trending')">See All →</button>
+    </div>
+    <div class="movie-grid" id="trendingGrid">${skeletons(8)}</div>
+  </div>
+
+  <!-- POPULAR MOVIES -->
+  <div class="section" id="popularSection">
+    <div class="section-header">
+      <div class="section-title"><span class="dot"></span> 🎬 Popular Movies</div>
+      <button class="see-all" onclick="loadMore('popular')">See All →</button>
+    </div>
+    <div class="movie-grid" id="popularGrid">${skeletons(8)}</div>
+  </div>
+
+  <!-- AD SQUARE MID -->
+  <div class="ad-slot ad-square" id="adMid">
+    <!-- AdSense Square Ad — replace with ins tag after approval -->
+    AD · 300×250
+  </div>
+
+  <!-- TV SHOWS -->
+  <div class="section" id="tvSection">
+    <div class="section-header">
+      <div class="section-title"><span class="dot" style="background:var(--green)"></span> 📺 Popular TV Shows</div>
+      <button class="see-all" onclick="loadMore('tv')">See All →</button>
+    </div>
+    <div class="movie-grid" id="tvGrid">${skeletons(8)}</div>
+  </div>
+
+  <!-- NETFLIX -->
+  <div class="section" id="netflixSection">
+    <div class="section-header">
+      <div class="section-title"><span style="color:#e50914;font-size:20px;line-height:1;font-family:'Bebas Neue',sans-serif">N</span> On Netflix</div>
+      <button class="see-all" onclick="loadMore('netflix')">See All →</button>
+    </div>
+    <div class="movie-grid" id="netflixGrid">${skeletons(8)}</div>
+  </div>
+
+  <!-- PRIVACY PAGE -->
+  <div class="privacy-page" id="privacyPage">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: March 2026</p>
+    <p>Welcome to TAVIK JUSTWATCH ("we", "our", or "us"). This Privacy Policy explains how we collect, use, and protect your information when you visit our website.</p>
+    <h2>Information We Collect</h2>
+    <p>We collect information you provide directly to us, such as when you submit reviews or ratings on our platform.</p>
+    <ul>
+      <li>Movie ratings and reviews you submit</li>
+      <li>Search queries you enter on the site</li>
+      <li>Usage data collected through Google Analytics and Google AdSense</li>
+    </ul>
+    <h2>Google AdSense</h2>
+    <p>We use Google AdSense to display advertisements on our website. Google AdSense uses cookies to serve ads based on your prior visits to our website or other websites on the Internet. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" style="color:var(--accent)">Google Ads Settings</a>.</p>
+    <h2>Cookies</h2>
+    <p>Our website uses cookies to improve your experience. Cookies are small data files placed on your device. We use cookies for:</p>
+    <ul>
+      <li>Saving your movie ratings and reviews locally</li>
+      <li>Google Analytics to understand site traffic</li>
+      <li>Google AdSense for advertising purposes</li>
+    </ul>
+    <h2>Third Party Services</h2>
+    <p>We use The Movie Database (TMDB) API to fetch movie and TV show information. TMDB has its own privacy policy available at themoviedb.org. Movie data and images are provided by TMDB.</p>
+    <h2>Data Storage</h2>
+    <p>Your ratings and reviews are stored locally in your browser's storage. We do not store personal data on our servers.</p>
+    <h2>Children's Privacy</h2>
+    <p>Our website is not directed to children under 13. We do not knowingly collect personal information from children under 13.</p>
+    <h2>Contact Us</h2>
+    <p>If you have questions about this Privacy Policy, please contact us through our website.</p>
+    <p style="margin-top:32px;padding:16px;background:var(--surface);border-radius:10px;border:1px solid var(--border);font-size:12px;color:var(--muted)">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer id="footerEl">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">TAVIK<span>· JUSTWATCH</span></div>
+      <p>Discover movies & TV shows. Find where to watch. Rate and review everything. Powered by TMDB.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Browse</h4>
+      <a onclick="showTab('movies',null)">Movies</a>
+      <a onclick="showTab('tvshows',null)">TV Shows</a>
+      <a onclick="showTab('netflix',null)">On Netflix</a>
+      <a onclick="showTab('trending',null)">Trending</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a onclick="showTab('privacy',null)">Privacy Policy</a>
+      <a href="https://www.themoviedb.org" target="_blank">TMDB</a>
+      <a href="https://adsense.google.com" target="_blank">Advertise</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 TAVIK JUSTWATCH. All rights reserved.</p>
+    <div class="tmdb-credit">
+      <span>Movie data by</span>
+      <strong style="color:var(--accent)">TMDB</strong>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ──
+const API_KEY = 'd34e79d2e68114d4b43e1761b3612bd3';
+const BASE = 'https://api.themoviedb.org/3';
+const IMG = 'https://image.tmdb.org/t/p/w500';
+const BACKDROP = 'https://image.tmdb.org/t/p/w1280';
+const SMALL = 'https://image.tmdb.org/t/p/w185';
+
+let pages = { trending:1, popular:1, netflix:1, tv:1 };
+let searchTimeout, searchType = 'movie';
+let currentTab = 'home';
+let userRatings = JSON.parse(localStorage.getItem('tavik_ratings') || '{}');
+let userReviews = JSON.parse(localStorage.getItem('tavik_reviews') || '{}');
+let modalStarSelected = 0;
+
+// ── SKELETON HTML ──
+function skeletons(n) { return Array(n).fill('<div class="skeleton"></div>').join(''); }
+
+// ── API ──
+async function api(ep) {
+  const sep = ep.includes('?') ? '&' : '?';
+  try {
+    const r = await fetch(`${BASE}${ep}${sep}api_key=${API_KEY}`);
+    return r.json();
+  } catch { showToast('Network error'); return { results: [] }; }
+}
+
+// ── RENDER ──
+function movieCard(m, isNetflix=false, isTV=false, delay=0) {
+  const poster = m.poster_path
+    ? `<img class="movie-poster" src="${IMG}${m.poster_path}" alt="" loading="lazy" onerror="this.outerHTML='<div class=movie-poster-placeholder>🎬</div>'">`
+    : `<div class="movie-poster-placeholder">${isTV ? '📺' : '🎬'}</div>`;
+  const title = m.title || m.name || 'Unknown';
+  const year = (m.release_date || m.first_air_date || '').slice(0,4) || '—';
+  const rating = m.vote_average ? m.vote_average.toFixed(1) : '—';
+  const savedRating = userRatings[m.id];
+  const stars = [1,2,3,4,5].map(s=>`<span class="star ${savedRating>=s?'filled':''}">${savedRating>=s?'★':'☆'}</span>`).join('');
+  const type = isTV ? 'tv' : 'movie';
+  return `<div class="movie-card" style="animation-delay:${delay*0.04}s" onclick="openItem(${m.id},'${type}')">
+    ${isNetflix ? '<div class="netflix-badge">NETFLIX</div>' : ''}
+    ${isTV ? '<div class="tv-badge">TV</div>' : ''}
+    ${poster}
+    <div class="movie-info">
+      <div class="movie-title">${title}</div>
+      <div class="movie-meta">
+        <span class="movie-year">${year}</span>
+        <span class="movie-rating">⭐ ${rating}</span>
+      </div>
+      <div class="star-row">${stars}</div>
+      <div class="user-review-label">${savedRating ? 'Your rating: '+savedRating+'/5' : 'Tap to rate'}</div>
+    </div>
+  </div>`;
+}
+
+function renderMovies(movies, gridId, append=false, netflix=false, tv=false) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  const html = movies.map((m,i) => movieCard(m, netflix, tv, i)).join('');
+  if (append) grid.insertAdjacentHTML('beforeend', html);
+  else grid.innerHTML = html || '<div class="empty-state" style="grid-column:1/-1"><div class="icon">🎬</div><h3>Nothing Found</h3><p>Try again later</p></div>';
+}
+
+// ── FETCH ──
+async function fetchTrending(page=1) { const d=await api(`/trending/all/week?page=${page}`); renderMovies(d.results?.slice(0,12)||[],'trendingGrid',page>1); }
+async function fetchPopular(page=1) { const d=await api(`/movie/popular?page=${page}`); renderMovies(d.results?.slice(0,12)||[],'popularGrid',page>1); }
+async function fetchTV(page=1) { const d=await api(`/tv/popular?page=${page}`); renderMovies(d.results?.slice(0,12)||[],'tvGrid',page>1,false,true); }
+async function fetchNetflix(page=1) { const d=await api(`/discover/movie?with_watch_providers=8&watch_region=US&sort_by=popularity.desc&page=${page}`); renderMovies(d.results?.slice(0,12)||[],'netflixGrid',page>1,true); }
+
+async function fetchSearch(q) {
+  if (!q.trim()) { document.getElementById('searchSection').classList.remove('active'); return; }
+  document.getElementById('searchSection').classList.add('active');
+  document.getElementById('searchGrid').innerHTML = '<div class="spinner"></div>';
+  const d = await api(`/search/${searchType}?query=${encodeURIComponent(q)}`);
+  if (!d.results?.length) {
+    document.getElementById('searchGrid').innerHTML = '<div class="empty-state"><div class="icon">🔍</div><h3>No Results</h3><p>Try a different title</p></div>';
+    return;
+  }
+  renderMovies(d.results.slice(0,20), 'searchGrid', false, false, searchType==='tv');
+}
+
+// ── MODAL ──
+async function openItem(id, type='movie') {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modalContent').innerHTML = '<div class="spinner"></div>';
+  modalStarSelected = userRatings[id] || 0;
+
+  const isTV = type === 'tv';
+  const [item, credits, providers] = await Promise.all([
+    api(`/${type}/${id}`),
+    api(`/${type}/${id}/credits`),
+    api(`/${type}/${id}/watch/providers`)
+  ]);
+
+  const title = item.title || item.name || 'Unknown';
+  const backdrop = item.backdrop_path
+    ? `<img src="${BACKDROP}${item.backdrop_path}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:20px 20px 0 0">`
+    : `<div style="height:100%;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,#141920,#1c2530);border-radius:20px 20px 0 0">${isTV?'📺':'🎬'}</div>`;
+
+  const genres = (item.genres||[]).map(g=>`<span class="chip genre">${g.name}</span>`).join('');
+  const year = (item.release_date||item.first_air_date||'').slice(0,4);
+  const runtime = item.runtime ? `${Math.floor(item.runtime/60)}h ${item.runtime%60}m` : (item.episode_run_time?.[0] ? item.episode_run_time[0]+'min/ep' : '');
+  const seasons = item.number_of_seasons ? `${item.number_of_seasons} Season${item.number_of_seasons>1?'s':''}` : '';
+
+  const us = providers.results?.US;
+  const allP = [...(us?.flatrate||[]),...(us?.rent||[]),...(us?.buy||[])].filter((p,i,a)=>a.findIndex(x=>x.provider_id===p.provider_id)===i).slice(0,6);
+  const provHtml = allP.length
+    ? allP.map(p=>`<div class="provider-item"><img src="${SMALL}${p.logo_path}" alt="" onerror="this.style.display='none'">${p.provider_name}</div>`).join('')
+    : '<span style="color:var(--muted);font-size:13px">Not available in US</span>';
+
+  const cast = (credits.cast||[]).slice(0,8);
+  const castHtml = cast.map(c=>`<div class="cast-item"><img class="cast-avatar" src="${c.profile_path?SMALL+c.profile_path:''}" alt="${c.name}" onerror="this.src=''"><div class="cast-name">${c.name}</div><div class="cast-char">${c.character||''}</div></div>`).join('');
+
+  // Reviews
+  const reviews = userReviews[id] || [];
+  const reviewsHtml = reviews.length
+    ? reviews.map(r=>`<div class="review-item"><div class="review-item-header"><span class="review-item-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</span><span class="review-item-date">${r.date}</span></div><p class="review-item-text">${r.text}</p></div>`).join('')
+    : '<p style="color:var(--muted);font-size:13px">No reviews yet. Be the first!</p>';
+
+  const starHtml = [1,2,3,4,5].map(s=>`<span class="review-star ${modalStarSelected>=s?'filled':''}" onclick="setModalStar(${id},${s})" data-val="${s}">${modalStarSelected>=s?'★':'☆'}</span>`).join('');
+
+  document.getElementById('modalContent').innerHTML = `
+    <div style="height:260px;overflow:hidden;border-radius:20px 20px 0 0;position:relative">
+      ${backdrop}
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,25,32,1) 0%,transparent 55%);border-radius:20px 20px 0 0"></div>
+    </div>
+    <div class="modal-body">
+      <h2 class="modal-title">${title}</h2>
+      ${item.tagline ? `<p class="modal-tagline">"${item.tagline}"</p>` : ''}
+      <div class="modal-chips">
+        ${year?`<span class="chip">${year}</span>`:''}
+        ${runtime?`<span class="chip">${runtime}</span>`:''}
+        ${seasons?`<span class="chip green">${seasons}</span>`:''}
+        <span class="chip rating">⭐ ${item.vote_average?.toFixed(1)||'—'} / 10</span>
+        ${isTV?`<span class="chip green">TV Show</span>`:''}
+        ${genres}
+      </div>
+      <p class="modal-overview">${item.overview||'No description available.'}</p>
+
+      <div class="modal-section-title">Where to Watch</div>
+      <div class="providers-list">${provHtml}</div>
+
+      ${cast.length?`<div class="modal-section-title">Cast</div><div class="cast-grid">${castHtml}</div>`:''}
+
+      <div class="modal-section-title" style="margin-top:8px">Rate & Review</div>
+      <div class="review-box">
+        <div class="review-stars" id="modalStars">${starHtml}</div>
+        <textarea class="review-textarea" id="reviewText" placeholder="Write your review... (optional)"></textarea>
+        <button class="review-submit" onclick="submitReview(${id},'${title}')">Submit Review</button>
+      </div>
+
+      <div class="modal-section-title">Community Reviews</div>
+      <div class="reviews-list" id="reviewsList">${reviewsHtml}</div>
+    </div>`;
+}
+
+function setModalStar(id, val) {
+  modalStarSelected = val;
+  userRatings[id] = val;
+  localStorage.setItem('tavik_ratings', JSON.stringify(userRatings));
+  document.querySelectorAll('#modalStars .review-star').forEach((s,i)=>{
+    s.classList.toggle('filled', i<val);
+    s.textContent = i<val ? '★' : '☆';
+  });
+  showToast(`Rated ${val}/5 ⭐`);
+}
+
+function submitReview(id, title) {
+  const text = document.getElementById('reviewText').value.trim();
+  if (!modalStarSelected) { showToast('Please select a star rating first!'); return; }
+  const review = { stars: modalStarSelected, text: text || 'No written review.', date: new Date().toLocaleDateString() };
+  if (!userReviews[id]) userReviews[id] = [];
+  userReviews[id].unshift(review);
+  localStorage.setItem('tavik_reviews', JSON.stringify(userReviews));
+  document.getElementById('reviewsList').innerHTML = userReviews[id].map(r=>`
+    <div class="review-item">
+      <div class="review-item-header"><span class="review-item-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</span><span class="review-item-date">${r.date}</span></div>
+      <p class="review-item-text">${r.text}</p>
+    </div>`).join('');
+  document.getElementById('reviewText').value = '';
+  showToast('Review saved! ✅');
+}
+
+function handleOverlayClick(e) { if (e.target===document.getElementById('modalOverlay')) closeModalBtn(); }
+function closeModalBtn() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+
+// ── SEARCH ──
+function handleSearch(val) {
+  clearTimeout(searchTimeout);
+  if (!val) { document.getElementById('searchSection').classList.remove('active'); return; }
+  searchTimeout = setTimeout(()=>fetchSearch(val), 400);
+}
+function setSearchType(type) {
+  searchType = type;
+  document.getElementById('searchMovieBtn').style.color = type==='movie' ? 'var(--accent)' : 'var(--muted)';
+  document.getElementById('searchTvBtn').style.color = type==='tv' ? 'var(--accent)' : 'var(--muted)';
+  const q = document.getElementById('searchInput').value;
+  if (q) fetchSearch(q);
+}
+
+// ── TABS ──
+function showTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const sections = {
+    hero: document.getElementById('heroSection'),
+    trending: document.getElementById('trendingSection'),
+    popular: document.getElementById('popularSection'),
+    tv: document.getElementById('tvSection'),
+    netflix: document.getElementById('netflixSection'),
+    privacy: document.getElementById('privacyPage'),
+    adTop: document.getElementById('adTop'),
+    adMid: document.getElementById('adMid'),
+    footer: document.getElementById('footerEl'),
+    search: document.getElementById('searchSection'),
+  };
+
+  // Hide all first
+  Object.values(sections).forEach(s=>{ if(s) s.style.display='none'; });
+  sections.search.classList.remove('active');
+  sections.privacy.classList.remove('active');
+
+  const show = (...ids) => ids.forEach(id=>{ if(sections[id]) sections[id].style.display = id==='privacy'?'block':id==='search'?'block':'block'; });
+
+  if (tab === 'home') {
+    sections.hero.style.display = 'flex';
+    show('trending','popular','tv','netflix','adTop','adMid','footer');
+  } else if (tab === 'movies') {
+    show('popular','adTop','footer');
+  } else if (tab === 'tvshows') {
+    show('tv','adTop','footer');
+  } else if (tab === 'netflix') {
+    show('netflix','adTop','footer');
+  } else if (tab === 'trending') {
+    show('trending','adTop','footer');
+  } else if (tab === 'privacy') {
+    sections.privacy.classList.add('active');
+    sections.privacy.style.display = 'block';
+    show('footer');
+  }
+
+  if (tab !== 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── MORE ──
+function loadMore(type) {
+  pages[type]++;
+  if (type==='trending') fetchTrending(pages[type]);
+  if (type==='popular') fetchPopular(pages[type]);
+  if (type==='tv') fetchTV(pages[type]);
+  if (type==='netflix') fetchNetflix(pages[type]);
+  showToast('Loading more...');
+}
+
+function scrollToContent() { document.getElementById('mainContent').scrollIntoView({ behavior:'smooth' }); }
+
+// ── MOBILE MENU ──
+function toggleMobileMenu() {
+  const nav = document.getElementById('mobileNav');
+  nav.classList.toggle('open');
+  document.getElementById('menuBtn').textContent = nav.classList.contains('open') ? '✕' : '☰';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('menuBtn').textContent = '☰';
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+document.addEventListener('keydown', e=>{ if (e.key==='Escape') closeModalBtn(); });
+
+// ── INIT ──
+fetchTrending(); fetchPopular(); fetchTV(); fetchNetflix();
+</script>
+</body>
+</html>
